@@ -1,0 +1,78 @@
+/* Lógico_1: */
+
+CREATE TABLE Serie (
+    Id_Serie NUMERIC PRIMARY KEY,
+    Nome_Serie VARCHAR
+);
+
+CREATE TABLE Responsavel_Aluno (
+    Email VARCHAR,
+    Nome_Responsavel VARCHAR,
+    Id_Responsavel NUMERIC,
+    Senha CHARACTER,
+    Nome VARCHAR,
+    Id_Aluno NUMERIC,
+    Serie VARCHAR,
+    Data_Nasc DATE,
+    fk_Serie_Id_Serie NUMERIC,
+    PRIMARY KEY (Id_Responsavel, Id_Aluno)
+);
+
+CREATE TABLE Disciplina (
+    Id_Disciplina NUMERIC PRIMARY KEY,
+    Nome_Disciplina VARCHAR
+);
+
+CREATE TABLE Atividades_Provas (
+    Id_Atividades NUMERIC PRIMARY KEY,
+    Notas_Atividades NUMERIC,
+    Notas_Provas NUMERIC,
+    fk_Professor_Id_Professor NUMERIC
+);
+
+CREATE TABLE Professor (
+    Id_Professor NUMERIC PRIMARY KEY,
+    Nome_professor VARCHAR,
+    email VARCHAR,
+    senha CHARACTER,
+    Data_Nasc DATE
+);
+
+CREATE TABLE Possui (
+    fk_Serie_Id_Serie NUMERIC,
+    fk_Professor_Id_Professor NUMERIC
+);
+
+CREATE TABLE Possui (
+    fk_Disciplina_Id_Disciplina NUMERIC,
+    fk_Professor_Id_Professor NUMERIC
+);
+ 
+ALTER TABLE Responsavel_Aluno ADD CONSTRAINT FK_Responsavel_Aluno_2
+    FOREIGN KEY (fk_Serie_Id_Serie)
+    REFERENCES Serie (Id_Serie);
+ 
+ALTER TABLE Atividades_Provas ADD CONSTRAINT FK_Atividades_Provas_2
+    FOREIGN KEY (fk_Professor_Id_Professor)
+    REFERENCES Professor (Id_Professor)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possui ADD CONSTRAINT FK_Possui_1
+    FOREIGN KEY (fk_Serie_Id_Serie)
+    REFERENCES Serie (Id_Serie)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possui ADD CONSTRAINT FK_Possui_2
+    FOREIGN KEY (fk_Professor_Id_Professor)
+    REFERENCES Professor (Id_Professor)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possui ADD CONSTRAINT FK_Possui_1
+    FOREIGN KEY (fk_Disciplina_Id_Disciplina)
+    REFERENCES Disciplina (Id_Disciplina)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possui ADD CONSTRAINT FK_Possui_2
+    FOREIGN KEY (fk_Professor_Id_Professor)
+    REFERENCES Professor (Id_Professor)
+    ON DELETE RESTRICT;
